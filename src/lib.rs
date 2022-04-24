@@ -16,8 +16,14 @@
 //!     assert_eq!(counter_bump!(count), 1);
 //! }*/
 //! ```
-
+use std::collections::HashMap;
+use std::sync::{Arc, Mutex};
 use proc_macro::TokenStream;
+use lazy_static::lazy_static;
+
+lazy_static! {
+	static ref COUNTERS: Arc<Mutex<HashMap<String, i32>>> = Arc::new(Mutex::new(Default::default()));
+}
 
 #[proc_macro]
 pub fn counting(_input: TokenStream) -> TokenStream {
