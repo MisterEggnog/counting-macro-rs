@@ -20,7 +20,7 @@
 use proc_macro::TokenStream;
 
 #[proc_macro]
-pub fn counter(input: TokenStream) -> TokenStream {
+pub fn counting(input: TokenStream) -> TokenStream {
     Default::default()
 }
 
