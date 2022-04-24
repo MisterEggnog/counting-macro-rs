@@ -20,27 +20,27 @@
 use proc_macro::TokenStream;
 
 #[proc_macro]
-pub fn counting(input: TokenStream) -> TokenStream {
+pub fn counting(_input: TokenStream) -> TokenStream {
     Default::default()
 }
 
 #[proc_macro]
-pub fn counter_bump(input: TokenStream) -> TokenStream {
+pub fn counter_bump(_input: TokenStream) -> TokenStream {
     Default::default()
 }
 
 #[proc_macro]
-pub fn counter_peek(input: TokenStream) -> TokenStream {
+pub fn counter_peek(_input: TokenStream) -> TokenStream {
     Default::default()
 }
 
 #[proc_macro]
-pub fn counter_set(input: TokenStream) -> TokenStream {
+pub fn counter_set(_input: TokenStream) -> TokenStream {
     Default::default()
 }
 
 #[proc_macro]
-pub fn counter_create(input: TokenStream) -> TokenStream {
+pub fn counter_create(_input: TokenStream) -> TokenStream {
     Default::default()
 }
 
