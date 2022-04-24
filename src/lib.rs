@@ -2,7 +2,7 @@
 //! The counters use i32 for the backend.
 //! Only incrementing is supported.
 //! ```
-//! counting! {
+//! /*counting! {
 //!     counter_create!(count);
 //!
 //!     // Get the value of the counter & increment
@@ -13,14 +13,34 @@
 //!
 //!     // Change the value of the counter
 //!     counter_set!(count, 1);
-//!     assert_eq!(counter_bump(count)!, 1);
-//! }
+//!     assert_eq!(counter_bump!(count), 1);
+//! }*/
 //! ```
 
 use proc_macro::TokenStream;
 
 #[proc_macro]
 pub fn counting(input: TokenStream) -> TokenStream {
+    Default::default()
+}
+
+#[proc_macro]
+pub fn counter_bump(input: TokenStream) -> TokenStream {
+    Default::default()
+}
+
+#[proc_macro]
+pub fn counter_peek(input: TokenStream) -> TokenStream {
+    Default::default()
+}
+
+#[proc_macro]
+pub fn counter_set(input: TokenStream) -> TokenStream {
+    Default::default()
+}
+
+#[proc_macro]
+pub fn counter_create(input: TokenStream) -> TokenStream {
     Default::default()
 }
 
