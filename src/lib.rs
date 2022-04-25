@@ -21,6 +21,9 @@ use proc_macro::TokenStream;
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
+use syn::parse_macro_input;
+use syn::Ident;
+
 lazy_static! {
     static ref COUNTERS: Arc<Mutex<HashMap<String, i32>>> =
         Arc::new(Mutex::new(Default::default()));
@@ -47,7 +50,14 @@ pub fn counter_set(_input: TokenStream) -> TokenStream {
 }
 
 #[proc_macro]
-pub fn counter_create(_input: TokenStream) -> TokenStream {
+pub fn counter_create(input: TokenStream) -> TokenStream {
+    let counter = parse_macro_input!(input as Ident);
+    let counter = format!("{}", counter);
+
+    let counter_list = COUNTERS.clone();
+    let mut list = counter_list.lock().unwrap();
+    list.insert(counter, 0);
+
     Default::default()
 }
 
