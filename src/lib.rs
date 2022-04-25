@@ -32,11 +32,6 @@ lazy_static! {
 }
 
 #[proc_macro]
-pub fn counting(_input: TokenStream) -> TokenStream {
-    Default::default()
-}
-
-#[proc_macro]
 pub fn counter_bump(input: TokenStream) -> TokenStream {
     let counter = parse_macro_input!(input as Ident);
     let counter = format!("{}", counter);
