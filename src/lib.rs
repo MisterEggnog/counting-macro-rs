@@ -2,19 +2,18 @@
 //! The counters use i32 for the backend.
 //! Only incrementing is supported.
 //! ```
-//! /*counting! {
-//!     counter_create!(count);
+//! # use bump_counting_macro::*;
+//!  counter_create!(count);
 //!
-//!     // Get the value of the counter & increment
-//!     assert_eq!(counter_bump!(count), 0);
+//! // Get the value of the counter & increment
+//!  assert_eq!(counter_bump!(count), 0);
 //!
-//!     // Get the value of the counter without incrementing
-//!     assert_eq!(counter_peek!(count), 1);
+//! // Get the value of the counter without incrementing
+//! assert_eq!(counter_peek!(count), 1);
 //!
-//!     // Change the value of the counter
-//!     counter_set!(count, 1);
-//!     assert_eq!(counter_bump!(count), 1);
-//! }*/
+//! // Change the value of the counter
+//! counter_set!(count, 12);
+//! assert_eq!(counter_bump!(count), 12);
 //! ```
 use lazy_static::lazy_static;
 use proc_macro::TokenStream;
