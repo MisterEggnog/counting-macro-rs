@@ -21,8 +21,9 @@ use proc_macro::TokenStream;
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
+use syn::parse::{Parse, ParseStream};
 use syn::parse_macro_input;
-use syn::Ident;
+use syn::{Ident, LitInt, Token};
 
 use quote::quote;
 
@@ -84,6 +85,19 @@ pub fn counter_create(input: TokenStream) -> TokenStream {
     list.insert(counter, 0);
 
     Default::default()
+}
+
+struct IdentNum(Ident, i32);
+
+impl Parse for IdentNum {
+    fn parse(input: ParseStream<'_>) -> syn::parse::Result<Self> {
+        let ident: Ident = input.parse()?;
+        input.parse::<Token![,]>()?;
+        let lit: LitInt = input.parse()?;
+        let num = lit.base10_parse()?;
+
+        Ok(IdentNum(ident, num))
+    }
 }
 
 #[cfg(test)]
