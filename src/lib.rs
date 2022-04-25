@@ -54,8 +54,19 @@ pub fn counter_bump(input: TokenStream) -> TokenStream {
 }
 
 #[proc_macro]
-pub fn counter_peek(_input: TokenStream) -> TokenStream {
-    Default::default()
+pub fn counter_peek(input: TokenStream) -> TokenStream {
+    let counter = parse_macro_input!(input as Ident);
+    let counter = format!("{}", counter);
+
+    let counter_list = COUNTERS.clone();
+    let list = counter_list.lock().unwrap();
+
+    let num = list[&counter];
+
+    quote! {
+        { #num }
+    }
+    .into()
 }
 
 #[proc_macro]
