@@ -71,7 +71,14 @@ pub fn counter_peek(input: TokenStream) -> TokenStream {
 }
 
 #[proc_macro]
-pub fn counter_set(_input: TokenStream) -> TokenStream {
+pub fn counter_set(input: TokenStream) -> TokenStream {
+	let IdentNum(counter, num) = parse_macro_input!(input as IdentNum);
+	let counter = counter.to_string();
+
+    let counter_list = COUNTERS.clone();
+    let mut list = counter_list.lock().unwrap();
+	list.insert(counter, num);
+
     Default::default()
 }
 

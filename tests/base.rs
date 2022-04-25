@@ -11,6 +11,6 @@ fn shared_counter() {
     assert_eq!(counter_peek!(count), 1);
 
     // Change the value of the counter
-    //counter_set!(count, 1);
-    //assert_eq!(counter_bump!(count), 1);
+    counter_set!(count, 12);
+    assert_eq!(counter_bump!(count), 12);
 }
