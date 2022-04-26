@@ -64,12 +64,12 @@ pub fn counter_peek(input: TokenStream) -> TokenStream {
 
 #[proc_macro]
 pub fn counter_set(input: TokenStream) -> TokenStream {
-	let IdentStringNum(counter, num) = parse_macro_input!(input as IdentStringNum);
-	let counter = counter.to_string();
+    let IdentStringNum(counter, num) = parse_macro_input!(input as IdentStringNum);
+    let counter = counter.to_string();
 
     let counter_list = COUNTERS.clone();
     let mut list = counter_list.lock().unwrap();
-	list.insert(counter, num);
+    list.insert(counter, num);
 
     Default::default()
 }
@@ -89,9 +89,9 @@ struct IdentString(String);
 
 impl Parse for IdentString {
     fn parse(input: ParseStream<'_>) -> syn::parse::Result<Self> {
-		let ident: Ident = input.parse()?;
-		Ok(IdentString(ident.to_string()))
-	}
+        let ident: Ident = input.parse()?;
+        Ok(IdentString(ident.to_string()))
+    }
 }
 
 struct IdentStringNum(String, i32);
