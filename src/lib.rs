@@ -33,8 +33,7 @@ lazy_static! {
 
 #[proc_macro]
 pub fn counter_bump(input: TokenStream) -> TokenStream {
-    let counter = parse_macro_input!(input as Ident);
-    let counter = format!("{}", counter);
+    let IdentString(counter) = parse_macro_input!(input as IdentString);
 
     let counter_list = COUNTERS.clone();
     let mut list = counter_list.lock().unwrap();
@@ -50,8 +49,7 @@ pub fn counter_bump(input: TokenStream) -> TokenStream {
 
 #[proc_macro]
 pub fn counter_peek(input: TokenStream) -> TokenStream {
-    let counter = parse_macro_input!(input as Ident);
-    let counter = format!("{}", counter);
+    let IdentString(counter) = parse_macro_input!(input as IdentString);
 
     let counter_list = COUNTERS.clone();
     let list = counter_list.lock().unwrap();
@@ -78,14 +76,22 @@ pub fn counter_set(input: TokenStream) -> TokenStream {
 
 #[proc_macro]
 pub fn counter_create(input: TokenStream) -> TokenStream {
-    let counter = parse_macro_input!(input as Ident);
-    let counter = format!("{}", counter);
+    let IdentString(counter) = parse_macro_input!(input as IdentString);
 
     let counter_list = COUNTERS.clone();
     let mut list = counter_list.lock().unwrap();
     list.insert(counter, 0);
 
     Default::default()
+}
+
+struct IdentString(String);
+
+impl Parse for IdentString {
+    fn parse(input: ParseStream<'_>) -> syn::parse::Result<Self> {
+		let ident: Ident = input.parse()?;
+		Ok(IdentString(ident.to_string()))
+	}
 }
 
 struct IdentNum(Ident, i32);
