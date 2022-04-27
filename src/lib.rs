@@ -15,7 +15,6 @@
 //! counter_set!(count, 12);
 //! assert_eq!(counter_bump!(count), 12);
 //! ```
-use lazy_static::lazy_static;
 use proc_macro::TokenStream;
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
@@ -35,31 +34,37 @@ thread_local! {
 pub fn counter_bump(input: TokenStream) -> TokenStream {
     let IdentString(counter) = parse_macro_input!(input as IdentString);
 
-    let counter_list = COUNTERS.clone();
-    let mut list = counter_list.lock().unwrap();
+    COUNTERS
+        .with(|counters| {
+            let counter_list = counters.clone();
+            let mut list = counter_list.lock().unwrap();
 
-    let num = list[&counter];
-    list.insert(counter, num + 1).unwrap();
+            let num = list[&counter];
+            list.insert(counter, num + 1).unwrap();
 
-    quote! {
-        { #num }
-    }
-    .into()
+            quote! {
+                { #num }
+            }
+        })
+        .into()
 }
 
 #[proc_macro]
 pub fn counter_peek(input: TokenStream) -> TokenStream {
     let IdentString(counter) = parse_macro_input!(input as IdentString);
 
-    let counter_list = COUNTERS.clone();
-    let list = counter_list.lock().unwrap();
+    COUNTERS
+        .with(|counters| {
+            let counter_list = counters.clone();
+            let list = counter_list.lock().unwrap();
 
-    let num = list[&counter];
+            let num = list[&counter];
 
-    quote! {
-        { #num }
-    }
-    .into()
+            quote! {
+                { #num }
+            }
+        })
+        .into()
 }
 
 #[proc_macro]
@@ -67,9 +72,11 @@ pub fn counter_set(input: TokenStream) -> TokenStream {
     let IdentStringNum(counter, num) = parse_macro_input!(input as IdentStringNum);
     let counter = counter.to_string();
 
-    let counter_list = COUNTERS.clone();
-    let mut list = counter_list.lock().unwrap();
-    list.insert(counter, num);
+    COUNTERS.with(|counters| {
+        let counter_list = counters.clone();
+        let mut list = counter_list.lock().unwrap();
+        list.insert(counter, num);
+    });
 
     Default::default()
 }
@@ -78,9 +85,11 @@ pub fn counter_set(input: TokenStream) -> TokenStream {
 pub fn counter_create(input: TokenStream) -> TokenStream {
     let IdentString(counter) = parse_macro_input!(input as IdentString);
 
-    let counter_list = COUNTERS.clone();
-    let mut list = counter_list.lock().unwrap();
-    list.insert(counter, 0);
+    COUNTERS.with(|counters| {
+        let counter_list = counters.clone();
+        let mut list = counter_list.lock().unwrap();
+        list.insert(counter, 0);
+    });
 
     Default::default()
 }
