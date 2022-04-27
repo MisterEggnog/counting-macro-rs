@@ -2,7 +2,7 @@
 //! The counters use i32 for the backend.
 //! Only incrementing is supported.
 //! ```
-//! # use bump_counting_macro::*;
+//! # use counting_macro::*;
 //!  counter_create!(count);
 //!
 //! // Get the value of the counter & increment

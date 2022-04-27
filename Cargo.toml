@@ -1,5 +1,5 @@
 [package]
-name = "bump_counting_macro"
+name = "counting_macro"
 version = "0.1.0"
 edition = "2021"
 
