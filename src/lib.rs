@@ -16,8 +16,8 @@
 //! assert_eq!(counter_bump!(count), 12);
 //! ```
 use proc_macro::TokenStream;
+use std::cell::RefCell;
 use std::collections::HashMap;
-use std::sync::{Arc, Mutex};
 
 use syn::parse::{Parse, ParseStream};
 use syn::parse_macro_input;
@@ -26,8 +26,8 @@ use syn::{Ident, LitInt, Token};
 use quote::quote;
 
 thread_local! {
-    static COUNTERS: Arc<Mutex<HashMap<String, i32>>> =
-        Arc::new(Mutex::new(Default::default()));
+    static COUNTERS: RefCell<HashMap<String, i32>> =
+        RefCell::new(Default::default());
 }
 
 #[proc_macro]
@@ -36,8 +36,7 @@ pub fn counter_bump(input: TokenStream) -> TokenStream {
 
     COUNTERS
         .with(|counters| {
-            let counter_list = counters.clone();
-            let mut list = counter_list.lock().unwrap();
+            let mut list = counters.borrow_mut();
 
             let num = list[&counter];
             list.insert(counter, num + 1).unwrap();
@@ -55,8 +54,7 @@ pub fn counter_peek(input: TokenStream) -> TokenStream {
 
     COUNTERS
         .with(|counters| {
-            let counter_list = counters.clone();
-            let list = counter_list.lock().unwrap();
+            let list = counters.borrow();
 
             let num = list[&counter];
 
@@ -73,8 +71,7 @@ pub fn counter_set(input: TokenStream) -> TokenStream {
     let counter = counter.to_string();
 
     COUNTERS.with(|counters| {
-        let counter_list = counters.clone();
-        let mut list = counter_list.lock().unwrap();
+        let mut list = counters.borrow_mut();
         list.insert(counter, num);
     });
 
@@ -86,8 +83,7 @@ pub fn counter_create(input: TokenStream) -> TokenStream {
     let IdentString(counter) = parse_macro_input!(input as IdentString);
 
     COUNTERS.with(|counters| {
-        let counter_list = counters.clone();
-        let mut list = counter_list.lock().unwrap();
+        let mut list = counters.borrow_mut();
         list.insert(counter, 0);
     });
 
