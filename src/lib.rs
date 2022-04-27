@@ -34,35 +34,33 @@ thread_local! {
 pub fn counter_bump(input: TokenStream) -> TokenStream {
     let IdentString(counter) = parse_macro_input!(input as IdentString);
 
-    COUNTERS
-        .with(|counters| {
-            let mut list = counters.borrow_mut();
+    COUNTERS.with(|counters| {
+        let mut list = counters.borrow_mut();
 
-            let num = list[&counter];
-            list.insert(counter, num + 1).unwrap();
+        let num = list[&counter];
+        list.insert(counter, num + 1).unwrap();
 
-            quote! {
-                { #num }
-            }
-        })
+        quote! {
+            { #num }
+        }
         .into()
+    })
 }
 
 #[proc_macro]
 pub fn counter_peek(input: TokenStream) -> TokenStream {
     let IdentString(counter) = parse_macro_input!(input as IdentString);
 
-    COUNTERS
-        .with(|counters| {
-            let list = counters.borrow();
+    COUNTERS.with(|counters| {
+        let list = counters.borrow();
 
-            let num = list[&counter];
+        let num = list[&counter];
 
-            quote! {
-                { #num }
-            }
-        })
+        quote! {
+            { #num }
+        }
         .into()
+    })
 }
 
 #[proc_macro]
