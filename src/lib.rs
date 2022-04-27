@@ -26,8 +26,8 @@ use syn::{Ident, LitInt, Token};
 
 use quote::quote;
 
-lazy_static! {
-    static ref COUNTERS: Arc<Mutex<HashMap<String, i32>>> =
+thread_local! {
+    static COUNTERS: Arc<Mutex<HashMap<String, i32>>> =
         Arc::new(Mutex::new(Default::default()));
 }
 
