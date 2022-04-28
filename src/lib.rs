@@ -67,6 +67,15 @@ pub fn counter_peek(input: TokenStream) -> TokenStream {
     })
 }
 
+/// Change value of counter.
+///
+/// Counter takes an i32 integer, it can be negative.
+/// ```
+/// # use counting_macro::*;
+/// # counter_create!(count);
+/// counter_set!(count, -4);
+/// assert_eq!(counter_incr!(count), -4);
+/// ```
 #[proc_macro]
 pub fn counter_set(input: TokenStream) -> TokenStream {
     let IdentStringNum(counter, num) = parse_macro_input!(input as IdentStringNum);
