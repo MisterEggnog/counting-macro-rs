@@ -66,7 +66,6 @@ pub fn counter_peek(input: TokenStream) -> TokenStream {
 #[proc_macro]
 pub fn counter_set(input: TokenStream) -> TokenStream {
     let IdentStringNum(counter, num) = parse_macro_input!(input as IdentStringNum);
-    let counter = counter.to_string();
 
     COUNTERS.with(|counters| {
         let mut list = counters.borrow_mut();
