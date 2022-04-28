@@ -125,6 +125,15 @@ pub fn counter_create(input: TokenStream) -> TokenStream {
     Default::default()
 }
 
+/// Increment counter.
+///
+/// ```
+/// # use counting_macro::*;
+/// # counter_create!(count);
+/// assert_eq!(counter_incr!(count), 0);
+/// counter_next!(count);
+/// assert_eq!(counter_incr!(count), 2);
+/// ```
 #[proc_macro]
 pub fn counter_next(input: TokenStream) -> TokenStream {
     counter_incr(input);
