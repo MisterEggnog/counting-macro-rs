@@ -51,6 +51,14 @@ pub fn counter_incr(input: TokenStream) -> TokenStream {
     })
 }
 
+/// See current count without incrementing it.
+///
+/// ```
+/// # use counting_macro::*;
+/// # counter_create!(count);
+/// assert_eq!(counter_peek!(count), 0);
+/// assert_eq!(counter_incr!(count), 0);
+/// ```
 #[proc_macro]
 pub fn counter_peek(input: TokenStream) -> TokenStream {
     let IdentString(counter) = parse_macro_input!(input as IdentString);
