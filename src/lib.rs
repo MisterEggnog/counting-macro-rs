@@ -79,6 +79,15 @@ pub fn counter_set(input: TokenStream) -> TokenStream {
     Default::default()
 }
 
+/// Create new counter.
+///
+/// This counter begins with a value of 0, if you want to change it use
+/// [counter_set!].
+/// ```
+/// # use counting_macro::*;
+/// counter_create!(count);
+/// assert_eq!(counter_incr!(count), 0);
+/// ```
 #[proc_macro]
 pub fn counter_create(input: TokenStream) -> TokenStream {
     let IdentString(counter) = parse_macro_input!(input as IdentString);
