@@ -11,6 +11,10 @@
 //! // Get the value of the counter without incrementing
 //! assert_eq!(counter_peek!(count), 1);
 //!
+//! // Increment without getting value
+//! counter_next!(count);
+//! assert_eq!(counter_peek!(count), 2);
+//!
 //! // Change the value of the counter
 //! counter_set!(count, 12);
 //! assert_eq!(counter_incr!(count), 12);
@@ -83,6 +87,13 @@ pub fn counter_create(input: TokenStream) -> TokenStream {
         let mut list = counters.borrow_mut();
         list.insert(counter, 0);
     });
+
+    Default::default()
+}
+
+#[proc_macro]
+pub fn counter_next(input: TokenStream) -> TokenStream {
+    counter_incr(input);
 
     Default::default()
 }
