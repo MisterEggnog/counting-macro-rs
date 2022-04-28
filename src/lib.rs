@@ -34,6 +34,14 @@ thread_local! {
         RefCell::new(Default::default());
 }
 
+/// Get counter value then increment it.
+///
+/// ```
+/// # use counting_macro::*;
+/// # counter_create!(count);
+/// assert_eq!(counter_incr!(count), 0);
+/// assert_eq!(counter_incr!(count), 1);
+/// ```
 #[proc_macro]
 pub fn counter_incr(input: TokenStream) -> TokenStream {
     let IdentString(counter) = parse_macro_input!(input as IdentString);
