@@ -6,14 +6,14 @@
 //!  counter_create!(count);
 //!
 //! // Get the value of the counter & increment
-//!  assert_eq!(counter_bump!(count), 0);
+//!  assert_eq!(counter_incr!(count), 0);
 //!
 //! // Get the value of the counter without incrementing
 //! assert_eq!(counter_peek!(count), 1);
 //!
 //! // Change the value of the counter
 //! counter_set!(count, 12);
-//! assert_eq!(counter_bump!(count), 12);
+//! assert_eq!(counter_incr!(count), 12);
 //! ```
 use proc_macro::TokenStream;
 use std::cell::RefCell;
@@ -31,7 +31,7 @@ thread_local! {
 }
 
 #[proc_macro]
-pub fn counter_bump(input: TokenStream) -> TokenStream {
+pub fn counter_incr(input: TokenStream) -> TokenStream {
     let IdentString(counter) = parse_macro_input!(input as IdentString);
 
     COUNTERS.with(|counters| {
