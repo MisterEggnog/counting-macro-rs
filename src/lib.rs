@@ -3,10 +3,10 @@
 //! Only incrementing is supported.
 //! ```
 //! # use counting_macro::*;
-//!  counter_create!(count);
+//! counter_create!(count);
 //!
 //! // Get the value of the counter & increment
-//!  assert_eq!(counter_incr!(count), 0);
+//! assert_eq!(counter_incr!(count), 0);
 //!
 //! // Get the value of the counter without incrementing
 //! assert_eq!(counter_peek!(count), 1);
