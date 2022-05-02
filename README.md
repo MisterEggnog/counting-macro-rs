@@ -1,6 +1,6 @@
 This library adds macro to get compile time counters.
 
-It uses a thread_local variables & procedural macros to add state to rust macros.
+Using procedural macros this library implements state **between** macro invocations.
 
 ## Warning
 I'm not certain about the stability or safety of this, so I would not
