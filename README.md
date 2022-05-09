@@ -1,3 +1,5 @@
+# Counting Macros
+
 This library adds macro to get compile time counters.
 
 Using procedural macros this library implements state **between** macro invocations.
