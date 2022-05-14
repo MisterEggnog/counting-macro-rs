@@ -1,3 +1,4 @@
+//! Stateful macro for compile time counting.
 //!
 //! The counters use i32 for the backend.
 //! Only incrementing is supported.
