@@ -3,7 +3,7 @@
 //! The counters use i32 for the backend.
 //! Only incrementing is supported.
 //! ```
-//! # use counting_macro::*;
+//! # use counting_macros::*;
 //! counter_create!(count);
 //!
 //! // Get the value of the counter & increment
@@ -45,7 +45,7 @@ thread_local! {
 /// Get counter value then increment it.
 ///
 /// ```
-/// # use counting_macro::*;
+/// # use counting_macros::*;
 /// # counter_create!(count);
 /// assert_eq!(counter_incr!(count), 0);
 /// assert_eq!(counter_incr!(count), 1);
@@ -70,7 +70,7 @@ pub fn counter_incr(input: TokenStream) -> TokenStream {
 /// See current count without incrementing it.
 ///
 /// ```
-/// # use counting_macro::*;
+/// # use counting_macros::*;
 /// # counter_create!(count);
 /// assert_eq!(counter_peek!(count), 0);
 /// assert_eq!(counter_incr!(count), 0);
@@ -95,7 +95,7 @@ pub fn counter_peek(input: TokenStream) -> TokenStream {
 ///
 /// Counter takes an i32 integer, it can be negative.
 /// ```
-/// # use counting_macro::*;
+/// # use counting_macros::*;
 /// # counter_create!(count);
 /// counter_set!(count, -4);
 /// assert_eq!(counter_incr!(count), -4);
@@ -117,7 +117,7 @@ pub fn counter_set(input: TokenStream) -> TokenStream {
 /// This counter begins with a value of 0, if you want to change it use
 /// [counter_set!].
 /// ```
-/// # use counting_macro::*;
+/// # use counting_macros::*;
 /// counter_create!(count);
 /// assert_eq!(counter_incr!(count), 0);
 /// ```
@@ -136,7 +136,7 @@ pub fn counter_create(input: TokenStream) -> TokenStream {
 /// Increment counter.
 ///
 /// ```
-/// # use counting_macro::*;
+/// # use counting_macros::*;
 /// # counter_create!(count);
 /// assert_eq!(counter_incr!(count), 0);
 /// counter_next!(count);

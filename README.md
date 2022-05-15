@@ -4,7 +4,7 @@ This library adds macro to get compile time counters.
 It uses procedural macros to implement state **between** macro invocations.
 
 ```rust
-use counting_macro::*;
+use counting_macros::*;
 
 counter_create!(counter);
 let nums = [counter_incr!(counter), counter_incr!(counter),
