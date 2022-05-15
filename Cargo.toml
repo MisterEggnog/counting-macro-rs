@@ -8,6 +8,7 @@ repository = "https://github.com/MisterEggnog/counting-macro-rs"
 description = "Stateful numeric incrementing macros"
 readme = "README.md"
 categories = ["rust-patterns", "development-tools::procedural-macro-helpers"]
+keywords = ["macro", "macros", "counting", "compile-time", "generate"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
