@@ -3,6 +3,13 @@
 This library adds macro to get compile time counters.
 It uses procedural macros to implement state **between** macro invocations.
 
+```rust
+use counting_macro::*;
+counter_create!(counter);
+let nums = [counter_incr!(counter), counter_incr!(counter), counter_incr!(counter)];
+assert_eq!(nums, [0, 1, 2]);
+```
+
 ## Warning
 I'm not certain about the stability or safety of this, so I would not
 recomend this for use in serious projects.

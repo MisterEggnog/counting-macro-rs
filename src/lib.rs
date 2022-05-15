@@ -170,3 +170,8 @@ impl Parse for IdentStringNum {
         Ok(IdentStringNum(ident, num))
     }
 }
+
+#[doc = include_str!("../README.md")]
+#[cfg(doctest)]
+#[proc_macro]
+pub fn ReadmeDoctests(_: TokenStream) -> TokenStream { }
