@@ -7,11 +7,13 @@ It uses procedural macros to implement state **between** macro invocations.
 use counting_macro::*;
 
 counter_create!(counter);
-let nums = [counter_incr!(counter), counter_incr!(counter), counter_incr!(counter)];
+let nums = [counter_incr!(counter), counter_incr!(counter),
+    counter_incr!(counter)];
 assert_eq!(nums, [0, 1, 2]);
 
 counter_set!(counter, -5);
-let nums = [counter_incr!(counter), counter_peek!(counter), counter_incr!(counter)];
+let nums = [counter_incr!(counter), counter_peek!(counter),
+    counter_incr!(counter)];
 assert_eq!(nums, [-5, -4, -4]);
 
 counter_next!(counter);
