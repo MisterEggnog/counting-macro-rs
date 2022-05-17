@@ -3,6 +3,13 @@
 This library adds macro to get compile time counters.
 It uses procedural macros to implement state **between** macro invocations.
 
+There are a few places this may be useful.
+Perhaps if you were defining a series of constant variables that you needed to
+increment for each variable.
+Of course in that situation it may make more sense to just build those values
+at runtime or using some kind of build script.
+
+## Example
 ```rust
 use counting_macros::*;
 
