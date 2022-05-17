@@ -20,6 +20,7 @@
 //! counter_set!(count, 12);
 //! assert_eq!(counter_incr!(count), 12);
 //! ```
+//!
 //! # Warning
 //! I'm not certain about the stability or safety of this, so I would not
 //! recomend this for use in serious projects.
