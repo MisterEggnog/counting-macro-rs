@@ -38,6 +38,10 @@ use quote::quote;
 // I find it unlikely that multiple threads will be modifying a source file at the
 // same time.
 // Thus we are using thread_local.
+//
+// This library only works if rustc compiles each file in it's own thread &
+// expands macros as they linearly appear in the file.
+// If this is not the case then this entire concept should be scrapped.
 thread_local! {
     static COUNTERS: RefCell<HashMap<String, i32>> =
         RefCell::new(Default::default());
